@@ -1,0 +1,124 @@
+# Сначала создайте новое приложение book (комманда - python manage.py startapp
+# book)
+# 2. Добавьте его в Installed_apps
+# 3. Создать в models.py новую модельку Book ( title, description, image, created_date,
+# updated_date, author ) не забыть прописать миграции
+# 4. Подготовить для него шаблон html, views.py , urls.py , admin.py как мы и делали на
+# уроке
+#
+
+# terminal:
+# django-admin startproject (имя проекта) main .
+# python manage.py startapp book
+# terminal
+
+    # settings.py:
+        33 Installed_appS=[
+        #       'book',
+        ]
+#        54 import os
+#        55 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+#       59 'DIRS'=[os.path.join(SETTINGS_PATH),'templates']
+
+#         122 STATICFILES_DIRS=[
+#                 BASE_DIR / 'static'
+#               ]
+#          120+ MEDIA_URL = '/media/'
+#          120+   MEDIA_ROOT = 'media/'
+# settings
+
+# create directory templates(создать дирикторию с названием похожего файла 59,
+# media,static
+
+# terminal:
+#   python manage.py migrate
+#   python manage.py makemigration
+#terminal
+
+# main.url.py
+# from django.conf import settings
+# from django.conf.urls.static import static
+urlpatterns = [
+    path('admin/', admin.site.urls),
+# ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
+# + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+# MAIN.URL.PY
+
+# terminal:
+#   python manage.py createsuperuser
+#terminal
+
+# book.models.py(создание шаблонов)
+#         class Book(models.Model):
+#     title = models.CharField(max_length=40)
+#     description = models.TextField()
+#     image = models.ImageField(upload_to='')
+#     created_date = models.DateField(auto_now_add=True)
+#     update_date = models.DateField(auto_now=True)
+#     author = models.CharField(max_length=20)
+
+
+# terminal:
+#   pip install pillow(для картинок)
+# python manage.py makemigrations
+# python manage.py migrate
+#terminal
+
+create book.urls.py
+
+# main.urls.py:
+# import include
+# path('', include('book.urls')),
+# (это для связывания урлов)
+
+# book.urls:
+# from django.urls import path
+#
+# urlpatterns = [
+#     path('book',views.book_all ),
+# ]
+
+
+book.view.py
+# (отображене сайта(тут прописываются функции которые наследуются\связаны с модельками))
+# from django.shortcuts import render
+# from . import models
+#
+# def book_all(request):
+#     book = models.Book.objects.all()
+#     return render(request, 'book_list.html',{'object': book})
+
+create templates 'book_list.html'
+# <!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <title>Books</title>
+# </head>
+# <body>
+# <div>
+#     <ul>
+#         {% for i in book%}
+#         <li>
+#             <h2>
+#                     {{i.title}}
+#             </h2>
+#             <p>
+#                 {{i.description}}
+#             </p>
+#         </li>
+#         {% endfor %}
+#     </ul>
+# </div>
+# </body>
+# </html>
+
+admin.py
+# from django.contrib import admin
+#
+# # Register your models here.
+# from . import models
+#
+# admin.site.register(models.Book)
+
+# dz 2
